@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 
+//branflakes interpreter
 void branflakes(char prgm[], int prgm_size, char in_stream[], int in_stream_size) {
     int instruction_ptr = 0;
     int data_ptr = 0;
@@ -80,6 +81,7 @@ void branflakes(char prgm[], int prgm_size, char in_stream[], int in_stream_size
 }
 
 int main(int argc, char* argv[]) {
+    //valid characters for program parse
     const std::string valid = "+-<>[],.";
 
     //select bf file, hello world by default
@@ -94,6 +96,7 @@ int main(int argc, char* argv[]) {
     std::string raw_prgm = "";
     std::string file_line;
 
+    //parse the program
     while (std::getline(raw_file, file_line)) {
         for (int ind = 0; ind < file_line.length(); ind++) {
             char curr = file_line[ind];
@@ -105,19 +108,20 @@ int main(int argc, char* argv[]) {
 
     raw_file.close();
 
+    //copy to char array
     char prgm[raw_prgm.length() + 1];
     for (int ind = 0; ind < raw_prgm.length(); ind++) {
         prgm[ind] = raw_prgm[ind];
     }
     prgm[raw_prgm.length()] = '\0';
 
+    int prgm_size = sizeof(prgm)/sizeof(prgm[0]); //length of instructions
 
-    //char prgm[] = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
-    int prgm_size = sizeof(prgm)/sizeof(prgm[0]);
-
+    //funny in stream, may make this file or command line argument later
     char in_stream[] = "abcdef";
-    int in_stream_size = sizeof(in_stream)/sizeof(in_stream[0]);
+    int in_stream_size = sizeof(in_stream)/sizeof(in_stream[0]); //length of in stream
 
+    //program info
     std::cout << "branflakes program: \n";
     std::cout << prgm << "\n";
     std::cout << "(" << (prgm_size-1) << " chars)\n";
@@ -126,6 +130,8 @@ int main(int argc, char* argv[]) {
     std::cout << "(" << (in_stream_size-1) << " chars)\n\n";
     std::cout << "branflakes out stream: \n";
 
+    //run program
     branflakes(prgm, prgm_size, in_stream, in_stream_size);
+    
     return 0;
 }
