@@ -5,9 +5,12 @@ a very simple and probably inefficient branflakes interpreter, able to load, par
 
 # compilation
 from within `branflakes-interpreter`:
+
 `g++ ./src/main.cpp -o branflakes`
 
 # usage
 from within `branflakes-interpreter`:
+
 `branflakes` runs default `./programs/helloworld.bf`
+
 `branflakes ./pathToProgram/programName.bf` runs file at specified path
